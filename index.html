@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>routing</title>
+    <style>
+      #result {
+    border: 2px solid tomato;
+    padding: 1rem;
+    margin: 1rem;
+}
+    </style>
+  </head>
+  <body>
+    <h1>routing value</h1>
+
+    <form onsubmit="weather(); return false" >
+     city <input type="text" placeholder="Enter your city name"  id="cityName"/>
+      <!-- <input type="text" placeholder="Enter your comments" /> -->
+      <button type="submit">Get weather</button>
+      
+    </form>
+    <div id="result">
+
+    </div>
+    
+    <script>
+        // api key 5691b4e0336445c7952191514241901
+        // e.preventDefault();
+
+        const weather = async (e) => {
+        let city =document.getElementById("cityName").value;
+
+
+        try {
+          const response = await axios.get(`http://localhost:3000/weather/${city}`);
+          console.log(response.data);
+
+          document.getElementById("result").innerHTML =`
+           <p> city name of ${response.data.city}</p>
+           <p> temp of ${response.data.temp}</p>
+           <p> wind speed of ${response.data.wind}</p>
+           <p> date of ${response.data.date}</p>
+          `
+        } catch (error) {
+
+          console.error(error);
+        }
+      };
+
+      weather();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+  </body>
+</html>
